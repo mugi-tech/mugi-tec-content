@@ -8,7 +8,7 @@ on:
 
 env:
   base_branch: main
-  diff_dir_path: "content"
+  diff_dir_path: content/**.md
 
 jobs:
   run-actions:
@@ -24,6 +24,6 @@ jobs:
 
       - name: Run actions using diff_files
         run: |
-          diff_files=$(git diff --name-only HEAD ${base_branch} --relative ${diff_dir_path} \
+          diff_files=$(git diff --name-only HEAD ${base_branch} -- ${diff_dir_path} \
             | tr "\n" " ")
           echo "# diff_files: ${diff_files}"
