@@ -1,12 +1,25 @@
+name: run-actions-using-diff-files
+
 on:
   push:
     branches: [main]
+    paths: ["content/**.md"]
+
+env:
+  base_branch: main
+  diff_dir_path: content/**.md
+
 jobs:
-  post-merge:
+  run-actions:
     runs-on: ubuntu-latest
     steps:
-      - id: get_diff
+      - name: Switch to pull request branch
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Run actions using diff_files
         run: |
-          for file in $(git diff ${{github.event.before}}..${{github.event.after}} --name-only --diff-filter=A -- '*.md') ; do
-          echo ${file}
-          done
+          diff_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ${diff_dir_path} \
+            | tr "\n" " ")
+          echo "# diff_files: ${diff_files}"
