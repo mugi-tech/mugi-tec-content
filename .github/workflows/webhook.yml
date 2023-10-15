@@ -24,6 +24,6 @@ jobs:
 
       - name: Run actions using diff_files
         run: |
-          diff_files=$(git diff --name-only origin/${{ github.base_ref }} HEAD ${base_branch} -- "${diff_path}" \
+          diff_files=$(git diff --name-only origin/${{ github.base_ref }} HEAD ${base_branch} " \
           | tr "\n" " ")
           echo "# diff_files: ${diff_files}"
