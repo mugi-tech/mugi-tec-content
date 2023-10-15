@@ -1,8 +1,7 @@
 name: run-actions-using-diff-files
 
 on:
-  pull_request:
-    types: [opened, synchronize, reopened]
+  push:
     branches: [main]
     paths: ["content/**.md"]
 
