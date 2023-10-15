@@ -1,0 +1,12 @@
+on:
+  push:
+    branches: [main]
+jobs:
+  post-merge:
+    runs-on: ubuntu-latest
+    steps:
+      - id: get_diff
+        run: |
+            for file in $(git diff ${{github.event.before}}..${{github.event.after}} --name-only --diff-filter=A -- '*.md') ; do
+            echo file
+            done
