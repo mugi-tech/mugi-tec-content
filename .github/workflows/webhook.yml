@@ -25,4 +25,4 @@ jobs:
       - name: Run actions using diff_files
         run: |
           diff_files=$(git diff --name-only HEAD ${base_branch} -- "${diff_path}" )
-          echo "${file}"
+          echo "${diff_files}"
