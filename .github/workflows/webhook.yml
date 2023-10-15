@@ -20,7 +20,7 @@ jobs:
           ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Fetch base branch
-        run: git fetch origin ${base_branch}:${base_branch}
+        run: git fetch origin ${{ github.base_ref }}
 
       - name: Run actions using diff_files
         run: |
