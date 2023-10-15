@@ -1,24 +1,29 @@
-name: webhook
+name: run-actions-using-diff-files
 
 on:
-  push:
-    branches:
-      - main
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [main]
+    paths: ["content/**.md"]
+
+env:
+  base_branch: main
+  diff_path: "content/**.md"
 
 jobs:
-  deploy:
+  run-actions:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Switch to pull request branch
+        uses: actions/checkout@v3
         with:
-          fetch-depth: 0
+          ref: ${{ github.event.pull_request.head.sha }}
 
-      - name: Extract changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v39
+      - name: Fetch base branch
+        run: git fetch origin ${base_branch}:${base_branch}
 
-      - name: List all changed files
+      - name: Run actions using diff_files
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "${file}"
-          done
+          diff_files=$(git diff --name-only HEAD ${base_branch} -- ${diff_path} \
+            | tr "\n" " ")
+          echo "# diff_files: ${diff_files}"
