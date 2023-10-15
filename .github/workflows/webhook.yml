@@ -1,7 +1,8 @@
 name: run-actions-using-diff-files
 
 on:
-  push:
+  pull_request:
+    types: [opened, synchronize, reopened]
     branches: [main]
     paths: ["content/**.md"]
 
@@ -16,7 +17,7 @@ jobs:
       - name: Switch to pull request branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.sha }}
+          ref: ${{ github.event.pull_request.head.sha }}
 
       - name: Fetch base branch
         run: git fetch origin ${base_branch}:${base_branch}
