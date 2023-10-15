@@ -24,6 +24,7 @@ jobs:
 
       - name: Run actions using diff_files
         run: |
-          for file in $(git diff --name-only HEAD ${base_branch} -- "${diff_path}"); do
+          diff_files=$(git diff --name-only HEAD ${base_branch} -- "${diff_path}" )
+          for file in ${diff_files}; do
             echo "${file}"
           done
