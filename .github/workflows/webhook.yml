@@ -1,24 +1,12 @@
-name: webhook
-
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
 jobs:
-  deploy:
+  post-merge:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-
-      - name: Extract changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v39
-
-      - name: List all changed files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file"
-          done
+      - id: get_diff
+    run: |
+      for file in $(git diff origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --name-only --diff-filter=A -- '*.md') ; do
+        echo "$file"
+      done
