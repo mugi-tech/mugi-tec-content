@@ -17,10 +17,10 @@ jobs:
       - name: Switch to pull request branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.sha }}
 
       - name: Fetch base branch
-        run: git fetch origin ${base_branch}:${base_branch}
+        run: git fetch origin ${base_branch}
 
       - name: Run actions using diff_files
         run: |
