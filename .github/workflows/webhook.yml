@@ -9,4 +9,4 @@ jobs:
         run: |
           for file in $(git diff origin/${GITHUB_BASE_REF}..origin/${GITHUB_HEAD_REF} --name-only --diff-filter=A -- '*.md') ; do
           echo "$file"
-          don
+          done
