@@ -19,6 +19,6 @@ jobs:
 
       - name: Extract changed files
         run: |
-          diff_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ${diff_dir_path} \
+          diff_files=$(git diff --name-only --diff-filter=AMR ${{ github.event.before }} ${{ github.sha }} -- ${diff_dir_path} \
             | tr "\n" " ")
           echo "# diff_files: ${diff_files}"
