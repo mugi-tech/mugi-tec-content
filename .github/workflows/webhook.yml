@@ -1,4 +1,4 @@
-name: run-actions-using-diff-files
+name: webhook
 
 on:
   push:
@@ -13,12 +13,11 @@ jobs:
   run-actions:
     runs-on: ubuntu-latest
     steps:
-      - name: Switch to pull request branch
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
 
-      - name: Run actions using diff_files
+      - name: Extract changed files
         run: |
           diff_files=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }} -- ${diff_dir_path} \
             | tr "\n" " ")
