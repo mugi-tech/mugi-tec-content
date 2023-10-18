@@ -2,8 +2,8 @@
 id: call-lambda-from-GithubAction
 title: GithubActionからLambdaを呼び出す方法
 tags: [Github, Lambda, ApiGateway]
-created: 2023-10-17
-updated:
+created: "2023-10-17"
+updated: "2023-10-17"
 ---
 
 ## GithubAction から Lambda を呼び出すには？
